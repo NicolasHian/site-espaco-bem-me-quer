@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"> <!-- define a codificação de caracteres da página como UTF-8 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- adapta a página ao tamanho da tela do dispositivo -->
+<title>Espaço Bem Me Quer — Garden &amp; Villa</title> <!-- título exibido na aba do navegador -->
+<meta name="description" content="Espaço Bem Me Quer, Brasília — Garden e Villa para casamentos, aniversários e festas. Estrutura completa, jardim, piscina e salão coberto."> <!-- descrição usada por buscadores (SEO) -->
+<link rel="preconnect" href="https://fonts.googleapis.com"> <!-- inicia a conexão antecipada com o Google Fonts, acelerando o carregamento -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- idem, para o domínio que hospeda os arquivos de fonte -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"> <!-- importa as fontes usadas no site -->
+<link rel="stylesheet" href="{{ asset_url('style.css') }}"> <!-- carrega o CSS principal, com versão automática para evitar cache antigo -->
+</head>
+<body class="home"> <!-- classe "home" usada pelo CSS/JS para aplicar comportamentos específicos desta página -->
+
+<div class="loader" id="loader" aria-hidden="true"> <!-- tela de carregamento inicial (cortina animada) -->
+  <div class="loader-panel loader-panel--left"></div> <!-- painel esquerdo da cortina -->
+  <div class="loader-panel loader-panel--right"></div> <!-- painel direito da cortina -->
+  <div class="loader-mark"> <!-- logo exibido no centro enquanto a cortina está fechada -->
+    <svg viewBox="0 0 64 64" width="48" height="48"> <!-- ícone de flor formado por elipses giradas -->
+      <g fill="currentColor">
+        <ellipse cx="32" cy="14" rx="7" ry="13"/> <!-- primeira pétala -->
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(45 32 32)"/> <!-- pétala girada 45° -->
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(90 32 32)"/> <!-- pétala girada 90° -->
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(135 32 32)"/> <!-- pétala girada 135° -->
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(180 32 32)"/> <!-- pétala girada 180° -->
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(225 32 32)"/> <!-- pétala girada 225° -->
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(270 32 32)"/> <!-- pétala girada 270° -->
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(315 32 32)"/> <!-- pétala girada 315° -->
+      </g>
+      <circle cx="32" cy="32" r="7" fill="var(--brass)"/> <!-- miolo da flor, no centro -->
+    </svg>
+  </div>
+</div>
+
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div> <!-- barra fina que mostra o progresso de leitura da página -->
+
+<nav class="navbar" id="navbar"> <!-- barra de navegação fixa no topo -->
+  <a href="{{ url_for('pagina_inicial') }}" class="brand"> <!-- link da logo, leva à página inicial -->
+    <span class="brand-mark" aria-hidden="true"> <!-- ícone da logo (mesma flor do loader) -->
+      <svg viewBox="0 0 64 64" width="34" height="34">
+        <g fill="currentColor">
+          <ellipse cx="32" cy="14" rx="7" ry="13"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(45 32 32)"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(90 32 32)"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(135 32 32)"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(180 32 32)"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(225 32 32)"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(270 32 32)"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(315 32 32)"/>
+        </g>
+        <circle cx="32" cy="32" r="7" fill="var(--brass)"/>
+      </svg>
+    </span>
+    <span class="brand-name">Bem Me Quer</span> <!-- nome da marca ao lado do ícone -->
+  </a>
+
+  <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false"> <!-- botão "hambúrguer" do menu mobile -->
+    <span></span><span></span><span></span> <!-- as três barrinhas do ícone -->
+  </button>
+
+  <div class="nav-links" id="navLinks"> <!-- links de navegação (menu) -->
+    <a href="{{ url_for('pagina_espacos') }}">Espaços</a> <!-- link para a página de espaços -->
+    <a href="#servicos">Serviços</a> <!-- link que rola até a seção de serviços nesta mesma página -->
+    <a href="{{ url_for('pagina_galeria') }}">Galeria</a> <!-- link para a página de galeria completa -->
+    <a href="#contato">Contato</a> <!-- link que rola até o rodapé (seção de contato) -->
+    <a href="{{ url_for('pagina_orcamento') }}" class="nav-cta shine">Solicitar orçamento</a> <!-- botão de destaque para a calculadora de orçamento -->
+  </div>
+</nav>
+
+<div class="smooth-wrapper" id="smoothWrapper"> <!-- contêiner usado pelo JS para simular a rolagem suave (inércia) -->
+
+<header class="hero-home" id="topo"> <!-- seção de abertura (hero) com imagem de fundo -->
+  <div class="hero-media"> <!-- camada da imagem de fundo do hero -->
+    <img src="{{ url_for('static', filename='img/final/hero.jpg') }}" alt="Área externa do Espaço Bem Me Quer decorada para evento ao entardecer"> <!-- imagem principal de fundo -->
+    <div class="hero-overlay"></div> <!-- camada escura sobre a imagem, para dar contraste ao texto -->
+  </div>
+
+  <div class="hero-petal hero-petal--1" data-parallax="0.4" aria-hidden="true">✿</div> <!-- pétala decorativa com efeito de paralaxe -->
+  <div class="hero-petal hero-petal--2" data-parallax="0.7" aria-hidden="true">✿</div> <!-- pétala decorativa 2, paralaxe mais rápido -->
+  <div class="hero-petal hero-petal--3" data-parallax="0.55" aria-hidden="true">✿</div> <!-- pétala decorativa 3 -->
+  <div class="hero-petal hero-petal--4" data-parallax="0.3" aria-hidden="true">✿</div> <!-- pétala decorativa 4, paralaxe mais lento -->
+
+  <div class="hero-content reveal"> <!-- bloco de texto central do hero -->
+    <p class="eyebrow eyebrow--light">Espaço Bem Me Quer &middot; Brasília</p> <!-- texto pequeno de destaque acima do título -->
+    <h1 class="split-words">Onde cada<br>festa vira <em>memória</em></h1> <!-- título principal, dividido em palavras animadas via JS -->
+    <p class="hero-sub hero-sub--light">Garden &amp; Villa: dois espaços, uma só dedicação — jardim, piscina e salão coberto para casamentos, aniversários e celebrações do seu jeito.</p> <!-- subtítulo explicativo -->
+    <div class="hero-actions"> <!-- botões de ação do hero -->
+      <a href="{{ url_for('pagina_orcamento') }}" class="btn btn--primary magnetic">Solicitar orçamento</a> <!-- botão principal, leva à calculadora -->
+      <a href="#espacos" class="btn btn--ghost magnetic">Conhecer os espaços</a> <!-- botão secundário, rola até a seção de espaços -->
+    </div>
+  </div>
+
+  <a href="#sobre" class="scroll-cue" aria-label="Rolar para baixo"> <!-- indicador visual convidando a rolar a página -->
+    <span></span>
+  </a>
+</header>
+
+<main>
+
+  <section class="section sobre" id="sobre"> <!-- seção "Sobre o espaço" -->
+    <div class="section-inner reveal">
+      <p class="eyebrow">Sobre o espaço</p> <!-- texto pequeno de destaque -->
+      <h2>Estrutura completa para você <br class="br-desktop">só se preocupar em comemorar</h2> <!-- título da seção -->
+      <p class="lede">O Bem Me Quer nasceu para receber histórias: casamentos ao ar livre, aniversários de 15 anos, formaturas e confraternizações. Dois ambientes — Garden e Villa — com cozinha equipada, piscina, jardim e salão coberto, prontos para qualquer estação do ano.</p> <!-- texto de apresentação -->
+    </div>
+    <div class="stats reveal"> <!-- números em destaque com contagem animada -->
+      <div class="stat"><span class="stat-num" data-count="2">0</span><span class="stat-label">Espaços exclusivos</span></div> <!-- estatística: quantidade de espaços -->
+      <div class="stat"><span class="stat-num" data-count="200">0</span><span class="stat-label">Convidados por evento</span></div> <!-- estatística: capacidade máxima de convidados -->
+      <div class="stat"><span class="stat-num" data-count="7">0</span><span class="stat-label">Dias por semana disponível</span></div> <!-- estatística: disponibilidade semanal -->
+    </div>
+  </section>
+
+  <div class="divider reveal" aria-hidden="true"> <!-- divisor decorativo animado entre seções -->
+    <svg viewBox="0 0 400 40" class="divider-svg" preserveAspectRatio="none"> <!-- linha ondulada decorativa -->
+      <path class="divider-line" pathLength="1" d="M0,20 C60,4 90,36 140,20 C170,10 180,10 200,20 C220,30 230,30 260,20 C310,36 340,4 400,20"/>
+    </svg>
+    <svg viewBox="0 0 64 64" class="divider-bloom" width="20" height="20"> <!-- florzinha central do divisor -->
+      <g fill="currentColor">
+        <ellipse cx="32" cy="14" rx="7" ry="13"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(45 32 32)"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(90 32 32)"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(135 32 32)"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(180 32 32)"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(225 32 32)"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(270 32 32)"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(315 32 32)"/>
+      </g>
+      <circle cx="32" cy="32" r="7" fill="var(--brass)"/>
+    </svg>
+  </div>
+
+  <section class="section espacos" id="espacos"> <!-- seção "Garden & Villa" -->
+    <div class="section-inner reveal">
+      <p class="eyebrow">Nossos espaços</p>
+      <h2>Garden &amp; Villa</h2>
+    </div>
+
+    <div class="space-grid"> <!-- grade com os dois cards de espaço -->
+      <article class="space-card reveal"> <!-- card do espaço Garden -->
+        <div class="space-media">
+          <img src="{{ url_for('static', filename='img/final/garden.jpg') }}" alt="Jardim com piscina, gazebo e área gramada do Espaço Garden" loading="lazy"> <!-- foto do Garden, carregada sob demanda -->
+        </div>
+        <div class="space-info">
+          <h3>Garden</h3>
+          <p>Jardim aberto com piscina, gazebo e amplo gramado — cenário natural para cerimônias ao ar livre e festas sob as estrelas.</p>
+          <a href="{{ url_for('pagina_orcamento') }}" class="link-arrow">Simular orçamento do Garden &rarr;</a> <!-- link direto para orçar o Garden -->
+        </div>
+      </article>
+
+      <article class="space-card reveal"> <!-- card do espaço Villa -->
+        <div class="space-media">
+          <img src="{{ url_for('static', filename='img/final/villa.jpg') }}" alt="Salão coberto da Villa decorado com arco de balões e mesas postas" loading="lazy"> <!-- foto da Villa, carregada sob demanda -->
+        </div>
+        <div class="space-info">
+          <h3>Villa</h3>
+          <p>Salão coberto com estrutura completa: churrasqueira, forno de pizza e três piscinas — conforto para eventos em qualquer clima.</p>
+          <a href="{{ url_for('pagina_orcamento') }}" class="link-arrow">Simular orçamento da Villa &rarr;</a> <!-- link direto para orçar a Villa -->
+        </div>
+      </article>
+    </div>
+
+    <div class="gallery-cta reveal">
+      <a href="{{ url_for('pagina_espacos') }}" class="link-arrow">Ver detalhes completos dos espaços &rarr;</a> <!-- link para a página completa de espaços -->
+    </div>
+  </section>
+
+  <section class="section servicos" id="servicos"> <!-- seção "Complete sua festa" (serviços adicionais) -->
+    <div class="section-inner reveal">
+      <p class="eyebrow">Serviços adicionais</p>
+      <h2>Complete sua festa</h2>
+      <p class="lede">Some ao aluguel do espaço os serviços que fazem a diferença no seu evento.</p>
+    </div>
+
+    <div class="service-grid"> <!-- grade com os cards de serviço -->
+      <div class="service-card reveal"> <!-- card: Carrinho de Açaí -->
+        <span class="service-icon" aria-hidden="true">🍧</span>
+        <h3>Carrinho de Açaí</h3>
+        <p>Cobrado por convidado, direto no evento.</p>
+      </div>
+      <div class="service-card reveal"> <!-- card: Buffet -->
+        <span class="service-icon" aria-hidden="true">🍽️</span>
+        <h3>Buffet</h3>
+        <p>Cardápio completo por pessoa, sob medida.</p>
+      </div>
+      <div class="service-card reveal"> <!-- card: DJ -->
+        <span class="service-icon" aria-hidden="true">🎧</span>
+        <h3>DJ</h3>
+        <p>Som e trilha para animar a pista a noite toda.</p>
+      </div>
+      <div class="service-card reveal"> <!-- card: Cabine Fotográfica -->
+        <span class="service-icon" aria-hidden="true">📸</span>
+        <h3>Cabine Fotográfica</h3>
+        <p>Registros divertidos e instantâneos para os convidados.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider reveal" aria-hidden="true"> <!-- segundo divisor decorativo, idêntico ao primeiro -->
+    <svg viewBox="0 0 400 40" class="divider-svg" preserveAspectRatio="none">
+      <path class="divider-line" pathLength="1" d="M0,20 C60,4 90,36 140,20 C170,10 180,10 200,20 C220,30 230,30 260,20 C310,36 340,4 400,20"/>
+    </svg>
+    <svg viewBox="0 0 64 64" class="divider-bloom" width="20" height="20">
+      <g fill="currentColor">
+        <ellipse cx="32" cy="14" rx="7" ry="13"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(45 32 32)"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(90 32 32)"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(135 32 32)"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(180 32 32)"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(225 32 32)"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(270 32 32)"/>
+        <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(315 32 32)"/>
+      </g>
+      <circle cx="32" cy="32" r="7" fill="var(--brass)"/>
+    </svg>
+  </div>
+
+  <section class="section galeria" id="galeria"> <!-- seção "Galeria" com prévia de fotos -->
+    <div class="section-inner reveal">
+      <p class="eyebrow">Galeria</p>
+      <h2>Um pouco dos nossos eventos</h2>
+    </div>
+
+    <div class="gallery-grid"> <!-- grade de miniaturas da galeria (mosaico) -->
+      <button type="button" class="gallery-item gallery-item--tall reveal"> <!-- miniatura maior/alta, abre o lightbox ao clicar -->
+        <img src="{{ url_for('static', filename='img/final/gallery-entrada.jpg') }}" alt="Entrada decorada com painel de folhas naturais" loading="lazy">
+        <span class="gallery-zoom" aria-hidden="true">＋</span> <!-- ícone de lupa/zoom exibido ao passar o mouse -->
+      </button>
+      <button type="button" class="gallery-item gallery-item--wide reveal"> <!-- miniatura mais larga -->
+        <img src="{{ url_for('static', filename='img/final/gallery-festa.jpg') }}" alt="Mesa de bolo decorada para festa de debutante" loading="lazy">
+        <span class="gallery-zoom" aria-hidden="true">＋</span>
+      </button>
+      <button type="button" class="gallery-item reveal"> <!-- miniatura padrão -->
+        <img src="{{ url_for('static', filename='img/final/garden.jpg') }}" alt="Piscina e jardim do Espaço Garden" loading="lazy">
+        <span class="gallery-zoom" aria-hidden="true">＋</span>
+      </button>
+      <button type="button" class="gallery-item reveal"> <!-- miniatura padrão -->
+        <img src="{{ url_for('static', filename='img/final/villa.jpg') }}" alt="Salão coberto da Villa" loading="lazy">
+        <span class="gallery-zoom" aria-hidden="true">＋</span>
+      </button>
+    </div>
+
+    <div class="gallery-cta reveal">
+      <a href="{{ url_for('pagina_galeria') }}" class="link-arrow">Ver galeria completa &rarr;</a> <!-- link para a galeria completa -->
+    </div>
+  </section>
+
+  <section class="cta-banner reveal"> <!-- faixa de chamada final para ação (CTA) -->
+    <div class="cta-petal cta-petal--1" aria-hidden="true">✿</div> <!-- pétala decorativa de fundo -->
+    <div class="cta-petal cta-petal--2" aria-hidden="true">✿</div> <!-- segunda pétala decorativa -->
+    <p class="eyebrow eyebrow--light">Vamos planejar sua festa?</p>
+    <h2>Receba o valor do seu evento agora mesmo</h2>
+    <a href="{{ url_for('pagina_orcamento') }}" class="btn btn--primary btn--lg magnetic">Calcular meu orçamento</a> <!-- botão final para a calculadora -->
+  </section>
+
+</main>
+
+<footer class="site-footer" id="contato"> <!-- rodapé do site, também usado como âncora "Contato" -->
+  <div class="footer-brand"> <!-- logo e nome no rodapé -->
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 64 64" width="30" height="30">
+        <g fill="currentColor">
+          <ellipse cx="32" cy="14" rx="7" ry="13"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(45 32 32)"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(90 32 32)"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(135 32 32)"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(180 32 32)"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(225 32 32)"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(270 32 32)"/>
+          <ellipse cx="32" cy="14" rx="7" ry="13" transform="rotate(315 32 32)"/>
+        </g>
+        <circle cx="32" cy="32" r="7" fill="var(--brass-soft)"/>
+      </svg>
+    </span>
+    <span>Espaço Bem Me Quer</span>
+  </div>
+
+  <div class="footer-info"> <!-- informações de contato -->
+    <p>Brasília &middot; DF</p>
+    <p>contato@bemmequer.com.br &middot; (61) 90000-0000</p>
+  </div>
+
+  <div class="footer-links"> <!-- links de navegação repetidos no rodapé -->
+    <a href="{{ url_for('pagina_espacos') }}">Espaços</a>
+    <a href="#servicos">Serviços</a>
+    <a href="{{ url_for('pagina_orcamento') }}">Orçamento</a>
+  </div>
+
+  <p class="footer-copy">&copy; <span id="ano"></span> Espaço Bem Me Quer — Garden &amp; Villa</p> <!-- linha de copyright; o ano é preenchido via JS -->
+</footer>
+
+</div><!-- /.smooth-wrapper -->
+
+<div class="lightbox" id="lightbox" aria-hidden="true"> <!-- painel de tela cheia para exibir fotos ampliadas da galeria -->
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Fechar">&times;</button> <!-- botão para fechar o lightbox -->
+  <img src="" alt="" id="lightboxImg"> <!-- imagem exibida em destaque; preenchida dinamicamente via JS -->
+</div>
+
+<script src="{{ asset_url('home.js') }}"></script> <!-- carrega o JavaScript da página, com versão automática contra cache -->
+</body>
+</html>
