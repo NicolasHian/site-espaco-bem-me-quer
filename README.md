@@ -78,4 +78,4 @@ Podem usar IA para ajudar no que for preciso, igual eu usei. Só que eu usei de 
 
 ## 7. Dúvidas
 
-Qualquer dúvida sobre o código, a estrutura ou como rodar o projeto, podem me chamar direto no WhatsApp/grupo. 🌸
+Qualquer dúvida sobre o código, a estrutura ou como rodar o projeto, podem me chamar direto no WhatsApp/grupo.
